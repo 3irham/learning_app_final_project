@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:learning_app_final_project/constants/r.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:learning_app_final_project/view/register_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -57,15 +57,18 @@ class _LoginPageState extends State<LoginPage> {
                   color: R.colors.greySubtitile,
                 ),
               ),
-              Spacer(),
+              const Spacer(),
               ButtonLogin(
                 backgroundColor: Colors.white,
                 borderColor: R.colors.primary,
+                onTap: () {
+                  Navigator.pushNamed(context, RegisterPage.route);
+                },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Image.asset(R.assets.icGoogle),
-                    SizedBox(
+                    const SizedBox(
                       width: 15,
                     ),
                     Text(
@@ -84,11 +87,14 @@ class _LoginPageState extends State<LoginPage> {
               ButtonLogin(
                 backgroundColor: Colors.black,
                 borderColor: Colors.black,
+                onTap: () {
+                  Navigator.pushNamed(context, RegisterPage.route);
+                },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Image.asset(R.assets.icApple),
-                    SizedBox(
+                    const SizedBox(
                       width: 15,
                     ),
                     Text(
@@ -118,11 +124,13 @@ class ButtonLogin extends StatelessWidget {
     required this.backgroundColor,
     required this.borderColor,
     required this.child,
+    required this.onTap,
   }) : super(key: key);
 
   final Color backgroundColor;
   final Color borderColor;
   final Widget child;
+  final Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -140,8 +148,8 @@ class ButtonLogin extends StatelessWidget {
           ),
           fixedSize: Size(MediaQuery.of(context).size.width * 0.8, 50),
         ),
+        onPressed: onTap,
         child: child,
-        onPressed: () {},
       ),
     );
   }
