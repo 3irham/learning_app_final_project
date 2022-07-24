@@ -19,6 +19,8 @@ class _RegisterPageState extends State<RegisterPage> {
   List<String> classSlta = ['10', '11', '12'];
   String selectedClass = '10';
 
+  final emailController = TextEditingController();
+
   onTap(Gender genderInput) {
     setState(() {
       if (genderInput == Gender.lakiLaki) {
@@ -31,36 +33,60 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor: Colors.white,
-          iconTheme: IconThemeData(color: Colors.black),
-          title: Text(
-            'Yuk isi data diri!',
-            style: GoogleFonts.poppins(
-              textStyle: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w700,
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.white,
+        iconTheme: IconThemeData(color: Colors.black),
+        title: Text(
+          'Yuk isi data diri!',
+          style: GoogleFonts.poppins(
+            textStyle: const TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.w700,
+            ),
+            color: Colors.black,
+          ),
+        ),
+      ),
+      bottomNavigationBar: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.only(bottom: 30),
+          child: ButtonLogin(
+            backgroundColor: R.colors.primary,
+            borderColor: R.colors.primary,
+            onTap: () {
+              print(emailController.text);
+              Navigator.pushNamed(context, MainPage.route);
+            },
+            child: Text(
+              R.strings.daftar,
+              style: GoogleFonts.poppins(
+                textStyle: const TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.bold,
+                ),
+                color: Colors.white,
               ),
-              color: Colors.black,
             ),
           ),
         ),
-        body: Padding(
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               RegisterTextField(
-                tiitle: 'Nama Lengkap',
-                hintText: 'Nama Lengkap',
+                controller: emailController,
+                tiitle: 'Email',
+                hintText: 'Email anda',
               ),
               SizedBox(height: 24),
               RegisterTextField(
-                tiitle: 'Email',
-                hintText: 'Email anda',
+                tiitle: 'Nama Lengkap',
+                hintText: 'Nama Lengkap',
               ),
               SizedBox(height: 24),
               Text(
@@ -187,24 +213,6 @@ class _RegisterPageState extends State<RegisterPage> {
                 tiitle: 'Nama Sekolah',
                 hintText: 'Nama Sekolah',
               ),
-              Spacer(),
-              ButtonLogin(
-                backgroundColor: R.colors.primary,
-                borderColor: R.colors.primary,
-                onTap: () {
-                  Navigator.pushNamed(context, MainPage.route);
-                },
-                child: Text(
-                  R.strings.daftar,
-                  style: GoogleFonts.poppins(
-                    textStyle: const TextStyle(
-                      fontSize: 17,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    color: Colors.white,
-                  ),
-                ),
-              ),
             ],
           ),
         ),
@@ -218,9 +226,11 @@ class RegisterTextField extends StatelessWidget {
     Key? key,
     required this.tiitle,
     required this.hintText,
+    this.controller,
   }) : super(key: key);
   final String tiitle;
   final String hintText;
+  final TextEditingController? controller;
 
   @override
   Widget build(BuildContext context) {
@@ -248,6 +258,7 @@ class RegisterTextField extends StatelessWidget {
             ),
           ),
           child: TextField(
+            controller: controller,
             decoration: InputDecoration(
               border: InputBorder.none,
               hintText: hintText,
