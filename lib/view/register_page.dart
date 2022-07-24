@@ -10,7 +10,23 @@ class RegisterPage extends StatefulWidget {
   State<RegisterPage> createState() => _RegisterPageState();
 }
 
+enum Gender { lakiLaki, perempuan }
+
 class _RegisterPageState extends State<RegisterPage> {
+  String gender = 'Laki-laki';
+  List<String> classSlta = ['10', '11', '12'];
+  String selectedClass = '10';
+
+  onTap(Gender genderInput) {
+    setState(() {
+      if (genderInput == Gender.lakiLaki) {
+        gender = 'Laki-laki';
+      } else {
+        gender = 'Perempuan';
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,6 +58,126 @@ class _RegisterPageState extends State<RegisterPage> {
             RegisterTextField(
               tiitle: 'Email',
               hintText: 'Email anda',
+            ),
+            SizedBox(height: 24),
+            Text(
+              'tiitle',
+              style: GoogleFonts.poppins(
+                textStyle: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
+                color: Colors.black,
+              ),
+            ),
+            SizedBox(height: 5),
+            Row(
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        elevation: 0,
+                        primary: gender == 'Laki-laki'
+                            ? R.colors.primary
+                            : Colors.white,
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          side: BorderSide(
+                            color: R.colors.greyBorder,
+                            width: 1,
+                          ),
+                        ),
+                      ),
+                      onPressed: () {
+                        onTap(Gender.lakiLaki);
+                      },
+                      child: Text(
+                        'Laki-laki',
+                        style: GoogleFonts.poppins(
+                          textStyle: const TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                          ),
+                          color: gender == 'Laki-laki'
+                              ? Colors.white
+                              : Color(0xff282828),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        elevation: 0,
+                        primary: gender == 'Perempuan'
+                            ? R.colors.primary
+                            : Colors.white,
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          side: BorderSide(
+                            color: R.colors.greyBorder,
+                            width: 1,
+                          ),
+                        ),
+                      ),
+                      onPressed: () {
+                        onTap(Gender.perempuan);
+                      },
+                      child: Text(
+                        'Perempuan',
+                        style: GoogleFonts.poppins(
+                          textStyle: const TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                          ),
+                          color: gender == 'Perempuan'
+                              ? Colors.white
+                              : Color(0xff282828),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 24),
+            Text(
+              'Kelas',
+            ),
+            SizedBox(height: 5),
+            Container(
+              width: double.infinity,
+              padding: EdgeInsets.symmetric(horizontal: 14),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                color: Colors.white,
+                border: Border.all(color: R.colors.greyBorder),
+              ),
+              child: DropdownButtonHideUnderline(
+                child: DropdownButton<String>(
+                    value: selectedClass,
+                    items: classSlta
+                        .map(
+                          (e) => DropdownMenuItem<String>(
+                            child: Text(e),
+                            value: e,
+                          ),
+                        )
+                        .toList(),
+                    onChanged: (String? val) {
+                      selectedClass = val!;
+                      setState(() {});
+                    }),
+              ),
             ),
             SizedBox(height: 24),
             RegisterTextField(
