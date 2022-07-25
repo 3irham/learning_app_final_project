@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:learning_app_final_project/constants/r.dart';
 import 'package:learning_app_final_project/view/login_page.dart';
 import 'package:learning_app_final_project/view/main/discussion/chat_page.dart';
 import 'package:learning_app_final_project/view/main/latihan_soal/home_page.dart';
+import 'package:learning_app_final_project/view/main/latihan_soal/mapel_page.dart';
 import 'package:learning_app_final_project/view/main/profile/profile_page.dart';
 import 'package:learning_app_final_project/view/main_page.dart';
 import 'package:learning_app_final_project/view/register_page.dart';
@@ -25,6 +27,9 @@ class MyApp extends StatelessWidget {
         textTheme: GoogleFonts.poppinsTextTheme(
           Theme.of(context).textTheme,
         ),
+        appBarTheme: AppBarTheme(
+          color: R.colors.primary,
+        ),
       ),
       // home: SplashScreen(),
       initialRoute: SplashScreen.route,
@@ -36,6 +41,7 @@ class MyApp extends StatelessWidget {
         HomePage.route: (context) => const HomePage(),
         ChatPage.route: (context) => const ChatPage(),
         ProfilePage.route: (context) => const ProfilePage(),
+        MapelPage.route: (context) => const MapelPage(),
       },
     );
   }

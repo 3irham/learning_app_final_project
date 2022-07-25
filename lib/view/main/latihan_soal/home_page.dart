@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:learning_app_final_project/constants/r.dart';
+import 'package:learning_app_final_project/view/main/latihan_soal/mapel_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -22,34 +23,39 @@ class _HomePageState extends State<HomePage> {
             _buildTopBanner(context),
             _buildHomeListMapel(),
             Container(
-              margin: const EdgeInsets.symmetric(
-                vertical: 10,
-                horizontal: 20,
-              ),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    children: [
-                      Text(
-                        'Terbaru',
-                        style: GoogleFonts.poppins(
-                          textStyle: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w700,
-                          ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                    ),
+                    child: Text(
+                      'Terbaru',
+                      style: GoogleFonts.poppins(
+                        textStyle: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
                         ),
                       ),
-                      // Spacer(),
-                    ],
+                    ),
                   ),
-                  Container(
-                    height: 170,
+                  SizedBox(height: 10),
+                  SizedBox(
+                    height: 150,
                     child: ListView.builder(
+                        itemCount: 5,
                         scrollDirection: Axis.horizontal,
                         itemBuilder: ((context, index) {
-                          return Image.asset(R.assets.imgBanner);
+                          return Padding(
+                            padding: const EdgeInsets.only(
+                              left: 20.0,
+                            ),
+                            child: Image.asset(R.assets.imgBanner),
+                          );
                         })),
                   ),
+                  SizedBox(height: 35),
                 ],
               ),
             ),
@@ -80,7 +86,9 @@ class _HomePageState extends State<HomePage> {
               ),
               Spacer(),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, MapelPage.route);
+                },
                 child: Text(
                   'Lihat Semua',
                   style: GoogleFonts.poppins(
