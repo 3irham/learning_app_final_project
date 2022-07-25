@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:learning_app_final_project/view/login_page.dart';
+import 'package:learning_app_final_project/view/main/discussion/chat_page.dart';
+import 'package:learning_app_final_project/view/main/latihan_soal/home_page.dart';
+import 'package:learning_app_final_project/view/main/profile/profile_page.dart';
 import 'package:learning_app_final_project/view/main_page.dart';
 import 'package:learning_app_final_project/view/register_page.dart';
 import 'package:learning_app_final_project/view/splash_screen.dart';
@@ -26,6 +29,9 @@ class MyApp extends StatelessWidget {
         LoginPage.route: (context) => const LoginPage(),
         RegisterPage.route: (context) => const RegisterPage(),
         MainPage.route: (context) => const MainPage(),
+        HomePage.route: (context) => const HomePage(),
+        ChatPage.route: (context) => const ChatPage(),
+        ProfilePage.route: (context) => const ProfilePage(),
       },
     );
   }

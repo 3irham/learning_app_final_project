@@ -57,7 +57,8 @@ class _RegisterPageState extends State<RegisterPage> {
             borderColor: R.colors.primary,
             onTap: () {
               print(emailController.text);
-              Navigator.pushNamed(context, MainPage.route);
+              Navigator.of(context)
+                  .pushNamedAndRemoveUntil(MainPage.route, (context) => false);
             },
             child: Text(
               R.strings.daftar,
