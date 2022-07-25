@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:learning_app_final_project/view/login_page.dart';
 import 'package:learning_app_final_project/view/main/discussion/chat_page.dart';
 import 'package:learning_app_final_project/view/main/latihan_soal/home_page.dart';
@@ -21,6 +22,9 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        textTheme: GoogleFonts.poppinsTextTheme(
+          Theme.of(context).textTheme,
+        ),
       ),
       // home: SplashScreen(),
       initialRoute: SplashScreen.route,
