@@ -11,4 +11,5 @@ class Assets {
   String icAtom = 'assets/ic_atom.png';
   String icKimia = 'assets/ic_kimia.png';
   String icDna = 'assets/ic_dna.png';
+  String imgBanner = 'assets/img_banner.png';
 }
