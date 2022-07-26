@@ -5,6 +5,7 @@ import 'package:learning_app_final_project/view/login_page.dart';
 import 'package:learning_app_final_project/view/main/discussion/chat_page.dart';
 import 'package:learning_app_final_project/view/main/latihan_soal/home_page.dart';
 import 'package:learning_app_final_project/view/main/latihan_soal/mapel_page.dart';
+import 'package:learning_app_final_project/view/main/latihan_soal/paket_soal_page.dart';
 import 'package:learning_app_final_project/view/main/profile/profile_page.dart';
 import 'package:learning_app_final_project/view/main_page.dart';
 import 'package:learning_app_final_project/view/register_page.dart';
@@ -42,6 +43,7 @@ class MyApp extends StatelessWidget {
         ChatPage.route: (context) => const ChatPage(),
         ProfilePage.route: (context) => const ProfilePage(),
         MapelPage.route: (context) => const MapelPage(),
+        PaketSoalPage.route: (context) => const PaketSoalPage(),
       },
     );
   }
