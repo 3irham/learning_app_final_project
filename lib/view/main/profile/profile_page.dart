@@ -107,6 +107,136 @@ class _ProfilePageState extends State<ProfilePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text('Identitas Diri'),
+                SizedBox(height: 10),
+                Text(
+                  'Nama Lengkap',
+                  style: GoogleFonts.poppins(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                    color: R.colors.greySubtitile,
+                  ),
+                ),
+                SizedBox(height: 5),
+                Text(
+                  'Nama Lengkap User',
+                  style: GoogleFonts.poppins(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.black,
+                  ),
+                ),
+                SizedBox(height: 10),
+                Text(
+                  'Email',
+                  style: GoogleFonts.poppins(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                    color: R.colors.greySubtitile,
+                  ),
+                ),
+                SizedBox(height: 5),
+                Text(
+                  'Nama Lengkap User',
+                  style: GoogleFonts.poppins(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.black,
+                  ),
+                ),
+                SizedBox(height: 10),
+                Text(
+                  'Jenis Kelamin',
+                  style: GoogleFonts.poppins(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                    color: R.colors.greySubtitile,
+                  ),
+                ),
+                SizedBox(height: 5),
+                Text(
+                  'Nama Lengkap User',
+                  style: GoogleFonts.poppins(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.black,
+                  ),
+                ),
+                SizedBox(height: 10),
+                Text(
+                  'Kelas',
+                  style: GoogleFonts.poppins(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                    color: R.colors.greySubtitile,
+                  ),
+                ),
+                SizedBox(height: 5),
+                Text(
+                  'Nama Lengkap User',
+                  style: GoogleFonts.poppins(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.black,
+                  ),
+                ),
+                SizedBox(height: 10),
+                Text(
+                  'Sekolah',
+                  style: GoogleFonts.poppins(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                    color: R.colors.greySubtitile,
+                  ),
+                ),
+                SizedBox(height: 5),
+                Text(
+                  'Nama Lengkap User',
+                  style: GoogleFonts.poppins(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.black,
+                  ),
+                ),
+                SizedBox(height: 10),
+              ],
+            ),
+          ),
+          Container(
+            decoration: BoxDecoration(
+              // borderRadius: BorderRadius.circular(10),
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  blurRadius: 6,
+                  color: Colors.black.withOpacity(0.25),
+                ),
+              ],
+            ),
+            margin: EdgeInsets.symmetric(
+              horizontal: 15,
+              vertical: 10,
+            ),
+            padding: EdgeInsets.symmetric(
+              horizontal: 13,
+              vertical: 18,
+            ),
+            child: Row(
+              children: [
+                Icon(
+                  Icons.exit_to_app,
+                  color: Colors.red,
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Text(
+                  'Keluar',
+                  style: GoogleFonts.poppins(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.red,
+                  ),
+                ),
               ],
             ),
           ),
