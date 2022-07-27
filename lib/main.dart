@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:learning_app_final_project/constants/r.dart';
@@ -11,7 +12,11 @@ import 'package:learning_app_final_project/view/main_page.dart';
 import 'package:learning_app_final_project/view/register_page.dart';
 import 'package:learning_app_final_project/view/splash_screen.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+      // options:
+      );
   runApp(const MyApp());
 }
 
@@ -33,9 +38,9 @@ class MyApp extends StatelessWidget {
         ),
       ),
       // home: SplashScreen(),
-      initialRoute: SplashScreen.route,
+      initialRoute: '/',
       routes: {
-        SplashScreen.route: (context) => const SplashScreen(),
+        '/': (context) => const SplashScreen(),
         LoginPage.route: (context) => const LoginPage(),
         RegisterPage.route: (context) => const RegisterPage(),
         MainPage.route: (context) => const MainPage(),

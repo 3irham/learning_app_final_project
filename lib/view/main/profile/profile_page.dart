@@ -1,6 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:learning_app_final_project/constants/r.dart';
+import 'package:learning_app_final_project/view/login_page.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -201,43 +204,51 @@ class _ProfilePageState extends State<ProfilePage> {
               ],
             ),
           ),
-          Container(
-            decoration: BoxDecoration(
-              // borderRadius: BorderRadius.circular(10),
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  blurRadius: 6,
-                  color: Colors.black.withOpacity(0.25),
-                ),
-              ],
-            ),
-            margin: EdgeInsets.symmetric(
-              horizontal: 15,
-              vertical: 10,
-            ),
-            padding: EdgeInsets.symmetric(
-              horizontal: 13,
-              vertical: 18,
-            ),
-            child: Row(
-              children: [
-                Icon(
-                  Icons.exit_to_app,
-                  color: Colors.red,
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                Text(
-                  'Keluar',
-                  style: GoogleFonts.poppins(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w400,
+          GestureDetector(
+            onTap: () async {
+              await GoogleSignIn().signOut();
+              await FirebaseAuth.instance.signOut();
+              Navigator.of(context).restorablePushNamedAndRemoveUntil(
+                  LoginPage.route, (route) => false);
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                // borderRadius: BorderRadius.circular(10),
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    blurRadius: 6,
+                    color: Colors.black.withOpacity(0.25),
+                  ),
+                ],
+              ),
+              margin: EdgeInsets.symmetric(
+                horizontal: 15,
+                vertical: 10,
+              ),
+              padding: EdgeInsets.symmetric(
+                horizontal: 13,
+                vertical: 18,
+              ),
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.exit_to_app,
                     color: Colors.red,
                   ),
-                ),
-              ],
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    'Keluar',
+                    style: GoogleFonts.poppins(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.red,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ],
