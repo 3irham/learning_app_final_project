@@ -32,6 +32,22 @@
   <title>learning_app_final_project</title>
   <link rel="manifest" href="manifest.json">
 
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script>
+    var firebaseConfig = {
+  apiKey: "AIzaSyBZMYhJgDOvdu1p0cj28sbacbLlDQqraH8",
+  authDomain: "learning-app-final-project.firebaseapp.com",
+  projectId: "learning-app-final-project",
+  storageBucket: "learning-app-final-project.appspot.com",
+  messagingSenderId: "652305577215",
+  appId: "1:652305577215:web:49fc412f912d4e13ca48ca",
+  measurementId: "G-Z2Y2NL4KNQ"
+};
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+  </script>
+
   <script>
     // The value below is injected by flutter build, do not touch.
     var serviceWorkerVersion = null;
@@ -40,6 +56,7 @@
   <script src="flutter.js" defer></script>
 </head>
 <body>
+  
   <script>
     window.addEventListener('load', function(ev) {
       // Download main.dart.js
