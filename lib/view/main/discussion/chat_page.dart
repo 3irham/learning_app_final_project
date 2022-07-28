@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:learning_app_final_project/constants/r.dart';
 
 class ChatPage extends StatefulWidget {
@@ -19,30 +20,59 @@ class _ChatPageState extends State<ChatPage> {
       body: Column(
         children: [
           Expanded(
-            child: ListView.builder(
-              itemCount: 2,
-              itemBuilder: (BuildContext context, int index) {
-                return Container(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Nama User'),
-                      Container(
-                        decoration: BoxDecoration(
-                          color: R.colors.primary,
-                          borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(10),
-                            bottomRight: Radius.circular(10),
-                            topRight: Radius.circular(10),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ListView.builder(
+                itemCount: 2,
+                itemBuilder: (BuildContext context, int index) {
+                  return Container(
+                    margin: EdgeInsets.only(
+                      bottom: 10,
+                    ),
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Nama User',
+                          style: GoogleFonts.poppins(
+                            textStyle: TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.w400,
+                            ),
+                            color: Color(0xff5200FF),
                           ),
                         ),
-                        child: Text('Pesan'),
-                      ),
-                      Text('Waktu kirim'),
-                    ],
-                  ),
-                );
-              },
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 10,
+                            vertical: 4,
+                          ),
+                          decoration: BoxDecoration(
+                            color: R.colors.primary,
+                            borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(10),
+                              bottomRight: Radius.circular(10),
+                              topRight: Radius.circular(10),
+                            ),
+                          ),
+                          child: Text('Pesan'),
+                        ),
+                        Text(
+                          'Waktu kirim',
+                          style: GoogleFonts.poppins(
+                            textStyle: TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.w400,
+                              color: R.colors.greySubtitile,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
             ),
           ),
           Container(
