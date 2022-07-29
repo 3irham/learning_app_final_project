@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:learning_app_final_project/constants/r.dart';
@@ -11,8 +13,14 @@ class ChatPage extends StatefulWidget {
 }
 
 class _ChatPageState extends State<ChatPage> {
+  final textController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    final chat = FirebaseFirestore.instance
+        .collection('room')
+        .doc('kimia')
+        .collection('chat');
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Diskusi Soal'),
@@ -75,33 +83,85 @@ class _ChatPageState extends State<ChatPage> {
               ),
             ),
           ),
-          Container(
-            child: Row(
-              children: [
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.add),
-                ),
-                Expanded(
-                  child: Container(
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: TextField(),
-                        ),
-                        IconButton(
-                          onPressed: () {},
-                          icon: Icon(Icons.camera),
-                        ),
-                      ],
+          SafeArea(
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    offset: Offset(0, -1),
+                    blurRadius: 10,
+                    color: Colors.black.withOpacity(0.25),
+                  ),
+                ],
+              ),
+              child: Row(
+                children: [
+                  IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.add,
+                      color: R.colors.primary,
                     ),
                   ),
-                ),
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.send),
-                ),
-              ],
+                  Expanded(
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                        vertical: 4,
+                      ),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Container(
+                              height: 40,
+                              child: TextField(
+                                controller: textController,
+                                decoration: InputDecoration(
+                                  suffixIcon: IconButton(
+                                    onPressed: () {},
+                                    icon: Icon(
+                                      Icons.camera_alt,
+                                      color: R.colors.primary,
+                                    ),
+                                  ),
+                                  contentPadding: EdgeInsets.zero,
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  hintText: 'Ketuk untuk menulis',
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      if (textController.text.isEmpty) {
+                        return;
+                      }
+                      print(textController.text);
+                      final user = FirebaseAuth.instance.currentUser!;
+
+                      final chatContent = {
+                        'Nama': user.displayName,
+                        'uid': user.uid,
+                        'content': textController.text,
+                        'email': user.email,
+                        'photo': user.photoURL,
+                        'time': FieldValue.serverTimestamp(),
+                      };
+                      chat.add(chatContent);
+                    },
+                    icon: Icon(
+                      Icons.send,
+                      color: R.colors.primary,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ],
