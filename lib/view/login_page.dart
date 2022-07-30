@@ -4,6 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:learning_app_final_project/constants/r.dart';
+import 'package:learning_app_final_project/constants/repository/auth_api.dart';
+import 'package:learning_app_final_project/models/user_by_email.dart';
+import 'package:learning_app_final_project/view/main/latihan_soal/home_page.dart';
+import 'package:learning_app_final_project/view/main_page.dart';
 import 'package:learning_app_final_project/view/register_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -97,7 +101,15 @@ class _LoginPageState extends State<LoginPage> {
                   await signInWithGoogle();
                   final User = FirebaseAuth.instance.currentUser;
                   if (User != null) {
-                    Navigator.pushNamed(context, RegisterPage.route);
+                    final dataUser = await AuthApi().getUserByEmail(User.email);
+                    if (dataUser != null) {
+                      final data = UserByEmail.fromJson(dataUser);
+                      if (data.status == 1) {
+                        Navigator.pushNamed(context, MainPage.route);
+                      } else {
+                        Navigator.pushNamed(context, RegisterPage.route);
+                      }
+                    }
                   } else {
                     Scaffold.of(context).showSnackBar(
                       SnackBar(
