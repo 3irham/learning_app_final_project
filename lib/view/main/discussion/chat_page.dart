@@ -14,13 +14,28 @@ class ChatPage extends StatefulWidget {
 
 class _ChatPageState extends State<ChatPage> {
   final textController = TextEditingController();
+  late CollectionReference chat;
+  QuerySnapshot? chatData;
+  List<QueryDocumentSnapshot>? listChat;
+
+  getDataFromFirebase() async {
+    listChat = chatData?.docs;
+    super.initState();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getDataFromFirebase();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final chat = FirebaseFirestore.instance
+    chat = FirebaseFirestore.instance
         .collection('room')
         .doc('kimia')
         .collection('chat');
-
+    final user = FirebaseAuth.instance.currentUser!;
     return Scaffold(
       appBar: AppBar(
         title: Text('Diskusi Soal'),
@@ -30,57 +45,62 @@ class _ChatPageState extends State<ChatPage> {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: ListView.builder(
-                itemCount: 2,
-                itemBuilder: (BuildContext context, int index) {
-                  return Container(
-                    margin: EdgeInsets.only(
-                      bottom: 10,
+              child: listChat == null
+                  ? const Center(child: CircularProgressIndicator())
+                  : ListView.builder(
+                      itemCount: listChat?.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final currentChat = listChat?[index];
+                        return Container(
+                          margin: EdgeInsets.only(
+                            bottom: 10,
+                          ),
+                          width: MediaQuery.of(context).size.width * 0.8,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                currentChat?['nama'],
+                                style: GoogleFonts.poppins(
+                                  textStyle: TextStyle(
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                  color: Color(0xff5200FF),
+                                ),
+                              ),
+                              Container(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 10,
+                                  vertical: 4,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: R.colors.primary,
+                                  borderRadius: BorderRadius.only(
+                                    bottomLeft: Radius.circular(10),
+                                    bottomRight: Radius.circular(10),
+                                    topRight: Radius.circular(10),
+                                  ),
+                                ),
+                                child: Text(
+                                  currentChat?['content'],
+                                ),
+                              ),
+                              Text(
+                                'Waktu kirim',
+                                style: GoogleFonts.poppins(
+                                  textStyle: TextStyle(
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.w400,
+                                    color: R.colors.greySubtitile,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
                     ),
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Nama User',
-                          style: GoogleFonts.poppins(
-                            textStyle: TextStyle(
-                              fontSize: 10,
-                              fontWeight: FontWeight.w400,
-                            ),
-                            color: Color(0xff5200FF),
-                          ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 10,
-                            vertical: 4,
-                          ),
-                          decoration: BoxDecoration(
-                            color: R.colors.primary,
-                            borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(10),
-                              bottomRight: Radius.circular(10),
-                              topRight: Radius.circular(10),
-                            ),
-                          ),
-                          child: Text('Pesan'),
-                        ),
-                        Text(
-                          'Waktu kirim',
-                          style: GoogleFonts.poppins(
-                            textStyle: TextStyle(
-                              fontSize: 10,
-                              fontWeight: FontWeight.w400,
-                              color: R.colors.greySubtitile,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              ),
             ),
           ),
           SafeArea(
@@ -128,7 +148,7 @@ class _ChatPageState extends State<ChatPage> {
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10),
                                   ),
-                                  hintText: 'Ketuk untuk menulis',
+                                  hintText: '  Ketuk untuk menulis',
                                 ),
                               ),
                             ),
@@ -146,14 +166,16 @@ class _ChatPageState extends State<ChatPage> {
                       final user = FirebaseAuth.instance.currentUser!;
 
                       final chatContent = {
-                        'Nama': user.displayName,
+                        'nama': user.displayName,
                         'uid': user.uid,
                         'content': textController.text,
                         'email': user.email,
                         'photo': user.photoURL,
                         'time': FieldValue.serverTimestamp(),
                       };
-                      chat.add(chatContent);
+                      chat.add(chatContent).whenComplete(() {
+                        getDataFromFirebase();
+                      });
                     },
                     icon: Icon(
                       Icons.send,
