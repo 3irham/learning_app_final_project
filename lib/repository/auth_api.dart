@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:learning_app_final_project/constants/api_url.dart';
 import 'package:learning_app_final_project/helpers/user_email.dart';
-import 'package:learning_app_final_project/models/latihan_soal_skor.dart';
 import 'package:learning_app_final_project/models/network_response.dart';
 
 class AuthApi {
@@ -56,6 +55,14 @@ class AuthApi {
       param: {
         "email": UserEmail.getUserEmail(),
       },
+    );
+    return result;
+  }
+
+  Future<NetworkResponse> postRegister(body) async {
+    final result = await _postRequest(
+      endpoint: ApiUrl.userRegister,
+      body: body,
     );
     return result;
   }
