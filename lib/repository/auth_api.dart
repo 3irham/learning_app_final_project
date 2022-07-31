@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:learning_app_final_project/constants/api_url.dart';
+import 'package:learning_app_final_project/helpers/user_email.dart';
 import 'package:learning_app_final_project/models/latihan_soal_skor.dart';
+import 'package:learning_app_final_project/models/network_response.dart';
 
 class AuthApi {
   Dio dioApi() {
@@ -18,41 +20,41 @@ class AuthApi {
     return dio;
   }
 
-  Future<Map<String, dynamic>?> _getRequest({endpoint, param}) async {
+  Future<NetworkResponse> _getRequest({endpoint, param}) async {
     try {
       final dio = dioApi();
       final result = await dio.get(endpoint, queryParameters: param);
-      return result.data;
+      return NetworkResponse.success(result.data);
     } on DioError catch (e) {
       if (e.type == DioErrorType.sendTimeout) {
-        print('error timeout');
+        return NetworkResponse.error(null, 'network error');
       }
-      print('error Dio');
+      return NetworkResponse.error(null, 'request error');
     } catch (e) {
-      print('error lainnya');
+      return NetworkResponse.error(null, 'other error');
     }
   }
 
-  Future<Map<String, dynamic>?> _postRequest({endpoint, body}) async {
+  Future<NetworkResponse> _postRequest({endpoint, body}) async {
     try {
       final dio = dioApi();
       final result = await dio.post(endpoint, data: body);
-      return result.data;
+      return NetworkResponse.success(result.data);
     } on DioError catch (e) {
       if (e.type == DioErrorType.sendTimeout) {
-        print('error timeout');
+        return NetworkResponse.error(null, 'network error');
       }
-      print('error Dio');
+      return NetworkResponse.error(null, 'request error');
     } catch (e) {
-      print('error lainnya');
+      return NetworkResponse.error(null, 'other error');
     }
   }
 
-  Future<Map<String, dynamic>?> getUserByEmail(email) async {
+  Future<NetworkResponse> getUserByEmail() async {
     final result = await _getRequest(
       endpoint: ApiUrl.users,
       param: {
-        "email": email,
+        "email": UserEmail.getUserEmail(),
       },
     );
     return result;

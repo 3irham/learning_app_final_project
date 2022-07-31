@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:learning_app_final_project/constants/r.dart';
-import 'package:learning_app_final_project/constants/repository/auth_api.dart';
+import 'package:learning_app_final_project/models/network_response.dart';
 import 'package:learning_app_final_project/models/user_by_email.dart';
-import 'package:learning_app_final_project/view/main/latihan_soal/home_page.dart';
+import 'package:learning_app_final_project/repository/auth_api.dart';
 import 'package:learning_app_final_project/view/main_page.dart';
 import 'package:learning_app_final_project/view/register_page.dart';
 
@@ -101,13 +101,13 @@ class _LoginPageState extends State<LoginPage> {
                   await signInWithGoogle();
                   final User = FirebaseAuth.instance.currentUser;
                   if (User != null) {
-                    final dataUser = await AuthApi().getUserByEmail(User.email);
-                    if (dataUser != null) {
-                      final data = UserByEmail.fromJson(dataUser);
+                    final dataUser = await AuthApi().getUserByEmail();
+                    if (dataUser.status == Status.success) {
+                      final data = UserByEmail.fromJson(dataUser.data!);
                       if (data.status == 1) {
-                        Navigator.pushNamed(context, MainPage.route);
+                        Navigator.of(context).pushNamed(MainPage.route);
                       } else {
-                        Navigator.pushNamed(context, RegisterPage.route);
+                        Navigator.of(context).pushNamed(RegisterPage.route);
                       }
                     }
                   } else {
